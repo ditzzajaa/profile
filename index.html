@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10101c">
+  <title>Mishello Mio Shani | My Profile</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #10101c;
+      --card: #1a1a2b;
+      --text: #f5f5ff;
+      --muted: #a5a5bf;
+      --accent: #a78bfa;
+      --pink: #f0abfc;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Navigasi */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(16, 16, 28, 0.8);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+      border-bottom: 1px solid #ffffff12;
+    }
+
+    .logo {
+      font-size: 17px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: var(--pink);
+    }
+
+    /* Halaman pembuka */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 110px 20px 60px;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 40%,
+        #6d4aff25 0%, transparent 65%);
+    }
+
+    .welcome {
+      color: var(--pink);
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      animation: appear 1s ease both;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 8vw, 68px);
+      line-height: 1.15;
+      max-width: 900px;
+      overflow-wrap: anywhere;
+      background: linear-gradient(100deg, #ffffff, #c4b5fd, #f0abfc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: appear 1s ease 0.2s both;
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin: 17px 0 25px;
+      max-width: 440px;
+      animation: appear 1s ease 0.4s both;
+    }
+
+    .profile-frame {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      padding: 5px;
+      margin: 25px 0 10px;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      box-shadow: 0 0 45px #a78bfa30;
+      animation: appear 1s ease 0.3s both;
+    }
+
+    .profile-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--card);
+      border: 4px solid var(--bg);
+    }
+
+    .upload-label {
+      display: inline-block;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 5px 12px;
+      border: 1px solid #ffffff25;
+      border-radius: 30px;
+      margin: 5px 0 18px;
+    }
+
+    .upload-label:hover {
+      color: white;
+      border-color: var(--accent);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      background: linear-gradient(110deg, #8b5cf6, #c084fc);
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px #8b5cf650;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 24px;
+      color: var(--muted);
+      font-size: 12px;
+      animation: float 2s infinite;
+    }
+
+    /* Bagian isi */
+    section.content {
+      padding: 95px 7%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-tag {
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 3px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(27px, 5vw, 40px);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #1c1c30, #171725);
+      border: 1px solid #ffffff12;
+      border-radius: 20px;
+      padding: 24px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #a78bfa65;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .info-item .icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .info-item small {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+    }
+
+    .info-item strong {
+      display: block;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .about-box {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .quote {
+      border-left: 3px solid var(--accent);
+      padding: 18px 22px;
+      background: #a78bfa0c;
+      color: #ddd6fe;
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+    }
+
+    .hobby-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .hobby {
+      background: #a78bfa15;
+      color: #ddd6fe;
+      border: 1px solid #a78bfa40;
+      padding: 8px 14px;
+      border-radius: 25px;
+      font-size: 13px;
+    }
+
+    /* Galeri */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 25px;
+    }
+
+    .gallery-item {
+      min-width: 0;
+      aspect-ratio: 3 / 4;
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.07);
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .gallery-placeholder span {
+      font-size: 30px;
+    }
+
+    .gallery-add {
+      margin-top: 20px;
+    }
+
+    /* Penutup */
+    .closing {
+      text-align: center;
+      padding: 90px 20px;
+      background: radial-gradient(ellipse at center, #8b5cf625, transparent 70%);
+    }
+
+    .closing h2 {
+      font-size: clamp(28px, 6vw, 45px);
+      margin-bottom: 12px;
+    }
+
+    .closing p {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    footer {
+      padding: 25px 15px;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #ffffff12;
+      font-size: 12px;
+    }
+
+    /* Animasi saat scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(35px);
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 12px 5%;
+      }
+
+      nav a {
+        margin-left: 9px;
+        font-size: 11px;
+      }
+
+      .logo {
+        font-size: 14px;
+      }
+
+      .profile-frame {
+        width: 155px;
+        height: 155px;
+      }
+
+      section.content {
+        padding: 75px 6%;
+      }
+
+      .info-grid {
+        gap: 10px;
+      }
+
+      .card {
+        padding: 17px;
+      }
+
+      .about-box {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">MyProfile.</div>
+    <div>
+      <a href="#tentang">Tentang</a>
+      <a href="#hobi">Hobi</a>
+      <a href="#galeri">Galeri</a>
+    </div>
+  </nav>
+
+  <!-- PEMBUKA -->
+  <header class="hero">
+    <div class="welcome">Selamat Datang</div>
+
+    <h1>Mishello Mio Shani</h1>
+
+    <p>
+      Welcome to my little world.
+      Kenali aku lebih dekat melalui halaman ini!
+    </p>
+
+    <div class="profile-frame">
+      <img
+        id="profilePhoto"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%231a1a2b'/%3E%3Ccircle cx='100' cy='75' r='35' fill='%23a78bfa'/%3E%3Cpath d='M30 200 Q30 120 100 120 Q170 120 170 200' fill='%23a78bfa'/%3E%3C/svg%3E"
+        alt="Foto profil"
+      >
+    </div>
+
+    <label class="upload-label" for="profileInput">
+      📷 Pilih Foto Profil
+    </label>
+    <input type="file" id="profileInput" accept="image/*">
+
+    <a class="button" href="#tentang">Kenali Aku ↓</a>
+
+    <div class="scroll-hint">Scroll untuk menjelajahi ↓</div>
+  </header>
+
+  <!-- TENTANG SAYA -->
+  <section class="content fade-in" id="tentang">
+    <div class="section-tag">01 — About Me</div>
+    <h2 class="section-title">Tentang Aku 👋</h2>
+
+    <p class="section-desc">
+      Halo! Aku adalah seseorang yang masih terus belajar,
+      mencoba hal-hal baru, dan mengumpulkan pengalaman
+                      menarik dalam perjalanan hidupku.
+    </p>
+
+    <div class="info-grid">
+      <div class="card info-item">
+        <div class="icon">👤</div>
+        <small>Nama Lengkap</small>
+        <strong>Mishello Mio Shani</strong>
+      </div>
+
+      <div class="card info-item">
+        <div class="icon">🎂</div>
+        <small>Umur</small>
+        <strong>15 Tahun</strong>
+      </div>
+
+      <div class="card info-item">
+        <div class="icon">📅</div>
+        <small>Tanggal Lahir</small>
+        <strong>03 Juni 2012</strong>
+      </div>
+
+      <div class="card info-item">
+        <div class="icon">🎓</div>
+        <small>Kelas</small>
+        <strong>IX (9)</strong>
+      </div>
+
+      <div class="card info-item">
+        <div class="icon">🌏</div>
+        <small>Tempat Tinggal</small>
+        <strong>Indonesia</strong>
+      </div>
+
+      <div class="card info-item">
+        <div class="icon">✨</div>
+        <small>Status</small>
+        <strong>Pelajar</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERITA SAYA -->
+  <section class="content fade-in">
+    <div class="section-tag">02 — My Story</div>
+
+    <div class="about-box">
+      <div>
+        <h2 class="section-title">Sedikit Cerita Tentangku</h2>
+
+        <p class="section-desc">
+          Setiap orang punya cerita dan keunikannya sendiri.
+          Aku ingin terus berkembang, belajar dari pengalaman,
+          dan menikmati setiap proses yang aku jalani.
+        </p>
+
+        <p class="section-desc">
+          Halaman ini adalah tempat kecil untuk memperkenalkan
+          diriku, menyimpan kenangan, dan berbagi hal-hal
+          yang aku sukai.
+        </p>
+      </div>
+
+      <div class="quote">
+        "Tidak harus menjadi sempurna untuk terus menjadi
+        versi diri yang lebih baik."
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBI -->
+  <section class="content fade-in" id="hobi">
+    <div class="section-tag">03 — My Interests</div>
+    <h2 class="section-title">Hal yang Aku Sukai 💜</h2>
+
+    <p class="section-desc">
+      Setiap orang punya kesukaan yang berbeda.
+      Ini adalah tempat untuk mengenalkan hobi dan minatku.
+    </p>
+
+    <div class="hobby-list">
+      <span class="hobby">🎮 Gaming</span>
+      <span class="hobby">🎬 Editing</span>
+      <span class="hobby">🎧 Mendengarkan Musik</span>
+      <span class="hobby">💻 Teknologi</span>
+      <span class="hobby">📸 Fotografi</span>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="content fade-in" id="galeri">
+    <div class="section-tag">04 — My Memories</div>
+    <h2 class="section-title">Galeri Kenangan 📸</h2>
+
+    <p class="section-desc">
+      Foto-foto pilihan yang menyimpan cerita dan kenangan.
+      Kamu bisa memilih beberapa foto dari perangkatmu.
+    </p>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>🌄</span>
+          Foto Kenangan 1
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>🌆</span>
+          Foto Kenangan 2
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>🌌</span>
+          Foto Kenangan 3
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-add">
+      <label class="button" for="galleryInput">
+        + Tambahkan Foto
+      </label>
+      <input
+        type="file"
+        id="galleryInput"
+        accept="image/*"
+        multiple
+      >
+    </div>
+  </section>
+
+  <!-- PENUTUP -->
+  <section class="closing fade-in">
+    <h2>Terima Kasih! 💜</h2>
+    <p>
+      Terima kasih sudah meluangkan waktu untuk
+      mengenal diriku lebih dekat.
+    </p>
+    <a class="button" href="#">Kembali ke Atas ↑</a>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> Mishello Mio Shani</p>
+    <p>Made with 💜 | My Personal Website</p>
+  </footer>
+
+  <script>
+    // Animasi fade-in ketika bagian masuk ke layar
+    const fadeElements = document.querySelectorAll(".fade-in");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+      fadeElements.forEach((element) => {
+        observer.observe(element);
+      });
+    } else {
+      fadeElements.forEach((element) => {
+        element.classList.add("visible");
+      });
+    }
+
+    // Tahun otomatis
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Mengganti foto profil dari perangkat
+    const profileInput = document.getElementById("profileInput");
+    const profilePhoto = document.getElementById("profilePhoto");
+    let profileUrl = null;
+
+    profileInput.addEventListener("change", function () {
+      const file = this.files[0];
+
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        alert("Pilih file gambar yang valid.");
+        this.value = "";
+        return;
+      }
+
+      if (profileUrl) URL.revokeObjectURL(profileUrl);
+
+      profileUrl = URL.createObjectURL(file);
+      profilePhoto.src = profileUrl;
+    });
+
+    // Menambahkan banyak foto ke galeri
+    const galleryInput = document.getElementById("galleryInput");
+    const galleryGrid = document.getElementById("galleryGrid");
+
+    galleryInput.addEventListener("change", function () {
+      const files = Array.from(this.files);
+
+      files.forEach((file) => {
+        if (!file.type.startsWith("image/")) return;
+
+        const url = URL.createObjectURL(file);
+        const item = document.createElement("div");
+        item.className = "gallery-item";
+
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Foto galeri pribadi";
+        img.loading = "lazy";
+
+        item.appendChild(img);
+        galleryGrid.appendChild(item);
+      });
+
+      // Agar file yang sama bisa dipilih lagi
+      this.value = "";
+    });
+  </script>
+
+</body>
+    </html>
+  
